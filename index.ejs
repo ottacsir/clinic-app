@@ -1,0 +1,34 @@
+<%- include('partials/header', { title: 'Home' }) %>
+
+<h1>Welcome to MediBook 🏥</h1>
+<p style="color: #718096; margin-top: 0.25rem;">Clinic appointment booking system</p>
+
+<div class="home-grid">
+    <a href="/doctors" class="home-card">
+        <div class="home-card-icon">🩺</div>
+        <div class="home-card-title">Doctors</div>
+        <div class="home-card-desc">Manage doctor profiles and availability</div>
+    </a>
+    <a href="/patients" class="home-card">
+        <div class="home-card-icon">👤</div>
+        <div class="home-card-title">Patients</div>
+        <div class="home-card-desc">Register and manage patient records</div>
+    </a>
+    <a href="/appointments" class="home-card">
+        <div class="home-card-icon">📅</div>
+        <div class="home-card-title">Appointments</div>
+        <div class="home-card-desc">Book and track clinic appointments</div>
+    </a>
+    <a href="/prescriptions" class="home-card">
+        <div class="home-card-icon">💊</div>
+        <div class="home-card-title">Prescriptions</div>
+        <div class="home-card-desc">View and manage prescriptions</div>
+    </a>
+    <a href="/specialties" class="home-card">
+        <div class="home-card-icon">🏷️</div>
+        <div class="home-card-title">Specialties</div>
+        <div class="home-card-desc">Manage medical specialties</div>
+    </a>
+</div>
+
+<%- include('partials/footer') %>

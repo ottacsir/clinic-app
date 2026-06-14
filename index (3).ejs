@@ -1,0 +1,39 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="page-header">
+    <h1>Patients</h1>
+    <a href="/patients/new" class="btn btn-primary">+ Add Patient</a>
+</div>
+
+<div class="card">
+    <div class="card-header">All Patients</div>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            <% patients.forEach(p => { %>
+                <tr>
+                    <td>
+                        <div class="doctor-cell">
+                            <div class="avatar"><%= p.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase() %></div>
+                            <%= p.name %>
+                        </div>
+                    </td>
+                    <td><%= p.email || '—' %></td>
+                    <td><%= p.phone || '—' %></td>
+                    <td>
+                        <div class="actions">
+                            <a href="/patients/<%= p.id %>/edit" class="btn btn-edit">Edit</a>
+                            <form action="/patients/<%= p.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Delete this patient?')">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="page-header">
+    <h1>Edit Doctor</h1>
+    <a href="/doctors" class="btn btn-edit">← Back</a>
+</div>
+
+<div class="form-card">
+    <form action="/doctors/<%= doctor.id %>?_method=PUT" method="POST">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" value="<%= doctor.name %>" required>
+
+        <label for="specialty_id">Specialty</label>
+        <select id="specialty_id" name="specialty_id">
+            <option value="">-- Select specialty --</option>
+            <% specialties.forEach(s => { %>
+                <option value="<%= s.id %>" <%= doctor.specialty_id === s.id ? 'selected' : '' %>>
+                    <%= s.name %>
+                </option>
+            <% }) %>
+        </select>
+
+        <label for="available_days">Available Days</label>
+        <input type="text" id="available_days" name="available_days" value="<%= doctor.available_days %>">
+
+        <label for="available_hours">Available Hours</label>
+        <input type="text" id="available_hours" name="available_hours" value="<%= doctor.available_hours %>">
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Doctor</button>
+            <a href="/doctors" class="btn btn-edit">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

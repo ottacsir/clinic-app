@@ -1,0 +1,54 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="page-header">
+    <h1>Doctors</h1>
+    <a href="/doctors/new" class="btn btn-primary">+ Add Doctor</a>
+</div>
+
+<div class="card">
+    <div class="card-header">All Doctors</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Specialty</th>
+                <th>Available Days</th>
+                <th>Available Hours</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% doctors.forEach(doctor => { %>
+                <% const initials = doctor.name.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase() %>
+                <tr>
+                    <td>
+                        <div class="doctor-cell">
+                            <div class="avatar"><%= initials %></div>
+                            <%= doctor.name %>
+                        </div>
+                    </td>
+                    <td>
+                        <% if (doctor.specialty_name) { %>
+                            <span class="badge badge-specialty"><%= doctor.specialty_name %></span>
+                        <% } else { %>
+                            <span style="color:#a0aec0">—</span>
+                        <% } %>
+                    </td>
+                    <td><%= doctor.available_days %></td>
+                    <td><%= doctor.available_hours %></td>
+                    <td>
+                        <div class="actions">
+                            <a href="/doctors/<%= doctor.id %>/edit" class="btn btn-edit">Edit</a>
+                            <form action="/doctors/<%= doctor.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-delete"
+                                    onclick="return confirm('Delete this doctor?')">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>
