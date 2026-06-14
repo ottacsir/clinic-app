@@ -1,34 +1,36 @@
-<%- include('partials/header', { title: 'Home' }) %>
+<%- include('../partials/header', { title: title }) %>
 
-<h1>Welcome to MediBook 🏥</h1>
-<p style="color: #718096; margin-top: 0.25rem;">Clinic appointment booking system</p>
-
-<div class="home-grid">
-    <a href="/doctors" class="home-card">
-        <div class="home-card-icon">🩺</div>
-        <div class="home-card-title">Doctors</div>
-        <div class="home-card-desc">Manage doctor profiles and availability</div>
-    </a>
-    <a href="/patients" class="home-card">
-        <div class="home-card-icon">👤</div>
-        <div class="home-card-title">Patients</div>
-        <div class="home-card-desc">Register and manage patient records</div>
-    </a>
-    <a href="/appointments" class="home-card">
-        <div class="home-card-icon">📅</div>
-        <div class="home-card-title">Appointments</div>
-        <div class="home-card-desc">Book and track clinic appointments</div>
-    </a>
-    <a href="/prescriptions" class="home-card">
-        <div class="home-card-icon">💊</div>
-        <div class="home-card-title">Prescriptions</div>
-        <div class="home-card-desc">View and manage prescriptions</div>
-    </a>
-    <a href="/specialties" class="home-card">
-        <div class="home-card-icon">🏷️</div>
-        <div class="home-card-title">Specialties</div>
-        <div class="home-card-desc">Manage medical specialties</div>
-    </a>
+<div class="page-header">
+    <h1>Prescriptions</h1>
+    <a href="/prescriptions/new" class="btn btn-primary">+ Add Prescription</a>
 </div>
 
-<%- include('partials/footer') %>
+<div class="card">
+    <div class="card-header">All Prescriptions</div>
+    <table>
+        <thead>
+            <tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Medication</th><th>Notes</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            <% prescriptions.forEach(p => { %>
+                <tr>
+                    <td><%= p.patient_name %></td>
+                    <td><%= p.doctor_name %></td>
+                    <td><%= p.appointment_date.toISOString().split('T')[0] %></td>
+                    <td><%= p.medication || '—' %></td>
+                    <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><%= p.notes || '—' %></td>
+                    <td>
+                        <div class="actions">
+                            <a href="/prescriptions/<%= p.id %>/edit" class="btn btn-edit">Edit</a>
+                            <form action="/prescriptions/<%= p.id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Delete this prescription?')">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>
